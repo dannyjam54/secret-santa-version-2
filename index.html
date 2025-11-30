@@ -38,8 +38,13 @@
       background: #fff8f0;
       padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       border: 3px solid #d32f2f;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .container:hover {
+      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
     }
 
     h2 {
@@ -66,7 +71,7 @@
       border-radius: 10px;
       font-size: 18px;
       padding: 12px;
-      border: none;
+      border: 2px solid #2e7d32; /* same border width on hover */
       color: #fff;
       cursor: pointer;
       background: #2e7d32;
@@ -80,6 +85,7 @@
 
     #resetBtn {
       background: #c62828;
+      border: 2px solid #c62828;
     }
 
     #resetBtn:hover {
@@ -241,7 +247,7 @@
 
     function showAdminPanel() {
       const panel = document.getElementById('adminPanel');
-      panel.style.display = 'flex'; // only show when admin
+      panel.style.display = 'flex';
 
       const listDiv = document.getElementById('nameList');
       listDiv.innerHTML = '';
