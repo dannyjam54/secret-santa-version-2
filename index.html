@@ -1,4 +1,6 @@
 <script>
+document.addEventListener("DOMContentLoaded", () => {
+
   const INITIAL_PEOPLE = ["Rob","Tilly","Sarah","Harry","Dan","Kelly","Neve","Erin"];
   let assignments = {};
   const usedDrawers = new Set();
@@ -40,7 +42,6 @@
   }
 
   function initAssignments() {
-    // Check if assignments exist already
     const saved = localStorage.getItem("secretSantaAssignments");
     const savedFamilies = localStorage.getItem("secretSantaFamilies");
     const savedPeople = localStorage.getItem("secretSantaPeople");
@@ -48,13 +49,11 @@
     if (saved && savedFamilies && savedPeople) {
       assignments = JSON.parse(saved);
       families = JSON.parse(savedFamilies);
-
       INITIAL_PEOPLE.length = 0;
       INITIAL_PEOPLE.push(...JSON.parse(savedPeople));
-      return; // Use stored results
+      return;
     }
 
-    // Otherwise, generate brand new
     const receivers = generateDerangement(INITIAL_PEOPLE);
     assignments = {};
     for (let i = 0; i < INITIAL_PEOPLE.length; i++) {
@@ -121,9 +120,9 @@
     resultBox.style.borderLeft = '';
     resetBtn.style.display = 'none';
 
-    localStorage.clear(); // FULL RESET
+    localStorage.clear();
 
-    initAssignments(); // now generates new stable assignment
+    initAssignments();
   }
 
   function showAdminPanel() {
@@ -212,23 +211,25 @@
     document.getElementById('adminPanel').style.display = 'none';
   }
 
+  initAssignments();
+
   document.getElementById('addNameBtn').onclick = addNameField;
   document.getElementById('saveNamesBtn').onclick = saveNames;
+  document.getElementById('drawBtn').onclick = drawName;
+  resetBtn.onclick = resetAll;
 
-  window.addEventListener('DOMContentLoaded', () => {
-    initAssignments();
+  // Snow effect
+  const snowflakeCount = 50;
+  for (let i = 0; i < snowflakeCount; i++) {
+    const flake = document.createElement('div');
+    flake.classList.add('snowflake');
+    flake.textContent = '❄';
+    flake.style.left = Math.random() * 100 + 'vw';
+    flake.style.fontSize = Math.random() * 24 + 12 + 'px';
+    flake.style.animationDuration = (Math.random() * 10 + 5) + 's';
+    flake.style.opacity = Math.random();
+    document.body.appendChild(flake);
+  }
 
-    // Snow effect
-    const snowflakeCount = 50;
-    for (let i = 0; i < snowflakeCount; i++) {
-      const flake = document.createElement('div');
-      flake.classList.add('snowflake');
-      flake.textContent = '❄';
-      flake.style.left = Math.random() * 100 + 'vw';
-      flake.style.fontSize = Math.random() * 24 + 12 + 'px';
-      flake.style.animationDuration = (Math.random() * 10 + 5) + 's';
-      flake.style.opacity = Math.random();
-      document.body.appendChild(flake);
-    }
-  });
+}); // END DOMContentLoaded
 </script>
